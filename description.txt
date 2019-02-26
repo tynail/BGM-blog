@@ -1,0 +1,32 @@
+//=======================================\\
+  Books Games Musics Movies Project Blog
+\\=========================================//
+
+This is a personal project that I made to improved my skills to became
+a mean stack web developer. (MongoDB,Express,Angular,Node)
+
+But this project don't include Angular as I don't learn it yet.
+
+The final project will be a cultural blog to discuss and review book,
+games, music and movie that people really like.
+
+Features:
+Route for books, movie, music, games. (begin with only games)
+Sign up using passport, passport-local
+User can comment a post
+NoSQL database (MongoDB)
+EJS as a template
+Admin page
+
+
+Technologies and library uses:
+Express, express-session
+EJS
+Body-parser
+Passport, passport-local
+Mongoose
+Method-override
+Connect-flash
+Eventually Jasmine for unit testing
+Bootstrap
+jQuery
