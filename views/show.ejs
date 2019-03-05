@@ -1,0 +1,18 @@
+<% include ./partials/header %>
+
+
+
+<div class="container">
+  <div class="col-md-9">
+    <div class="thumbnail">
+      <img class="img-responsive" src="<%= game.image %>" alt="game image">
+      <div class="caption-full">
+        <h4> <%= game.name%> </h4>
+        <p> <%= game.description%> </p>
+      </div>
+    </div>
+    <a id="endbtn" class="btn btn-primary" href="/games">Back to all games</a>
+  </div>
+</div>
+
+<% include ./partials/footer %>

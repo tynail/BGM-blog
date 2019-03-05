@@ -10,40 +10,15 @@ app.use(express.static(__dirname + '/public'));
 
 app.set("view engine", "ejs"); // Using ejs as template
 
-// Game.create(
-//   {
 //     name: "Broforce",
 //     image:"https://steamcdn-a.akamaihd.net/steam/apps/274190/header.jpg?t=1511400974"
-//   }, function (err, game){
-//     if(err){
-//       console.log(err)
-//     } else {
-//       console.log("Game created");
-//       console.log(game);
-//     }
-//   }
-// );
 
-// var games = [
-//   { name: "Broforce",
-//     image:"https://steamcdn-a.akamaihd.net/steam/apps/274190/header.jpg?t=1511400974"
-//   },
-//
-//   {
-//     name: "Grim Dawn",
-//     image: "https://steamcdn-a.akamaihd.net/steam/apps/219990/capsule_616x353.jpg?t=1507745184"
-//   },
-//
-//   {
 //     name: "Nier Automata",
 //     image: "https://upload.wikimedia.org/wikipedia/en/thumb/2/21/Nier_Automata_cover_art.jpg/220px-Nier_Automata_cover_art.jpg"
-//   },
-//
-//   {
+
 //     name: "Monster Hunter World",
 //     image: "https://steamcdn-a.akamaihd.net/steam/apps/582010/header.jpg?t=1550022250"
-//   },
-// ];
+
 
 // Route =================================================
 // index route
@@ -51,7 +26,7 @@ app.get("/", function(req,res){
   res.render("landing");
 });
 
-//Show all games routes
+//INDEX ROUTE //Show all games routes
 app.get("/games" , function(req,res){
   Game.find({}, function(err,allGames){
     if(err){
@@ -62,9 +37,39 @@ app.get("/games" , function(req,res){
   });
 });
 
+//NEW ROUTE //  Show new game form
+app.get("/games/new",function(req,res){
+  res.render("new");
+});
 
+//CREATE ROUTE // Create a new game then redirect
+app.post("/games", function(req,res){
+  var name = req.body.name;
+  var image = req.body.image;
+  var description = req.body.description;
+  var newGame = {name:name, image:image, description:description};
 
+  //Create a new Games and save to db
+  Game.create(newGame, function(err,newlyCreated){
+    if(err){
+      console.log(err);
+    }else {
+      console.log(newlyCreated);
+      res.redirect("/games");
+    }
+  });
+});
 
+// SHOW ROUTE // Show info about one specific games
+app.get("/games/:id",function(req,res){
+    Game.findById(req.params.id, function(err,foundGame){
+      if(err){
+        console.log(err);
+      } else {
+        res.render("show", {game:foundGame});
+      }
+    });
+  });
 
 
 
