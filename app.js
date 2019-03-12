@@ -52,38 +52,38 @@ app.post("/games", function(req,res){
 
   //Create a new Games and save to db
   Game.create(newGame, function(err,newlyCreated){
-    if(err){
-      console.log(err);
-    }else {
-      console.log(newlyCreated);
-      res.redirect("/games");
-    }
+      if(err){
+        console.log(err);
+      }else {
+        console.log(newlyCreated);
+        res.redirect("/games");
+      }
   });
 });
 
 // SHOW ROUTE // Show info about one specific games
 app.get("/games/:id",function(req,res){
     Game.findById(req.params.id, function(err,foundGame){
-      if(err){
-        console.log(err);
-      } else {
-        res.render("show", {game:foundGame});
-      }
+        if(err){
+          console.log(err);
+        } else {
+          res.render("show", {game:foundGame});
+        }
     });
   });
 
 //EDIT ROUTE // Show Edit form for a game
 app.get("/games/:id/edit",function(req,res){
   Game.findById(req.params.id, function(err,foundGame){
-    if(err){
-      console.log(err);
-    }else {
-      res.render("edit", {game:foundGame});
-    }
+      if(err){
+        console.log(err);
+      }else {
+        res.render("edit", {game:foundGame});
+      }
   });
 });
 
-// UPDATED ROUTE
+// UPDATED ROUTE // Update a particular game, then redirect
 app.put("/games/:id",function(req,res){
   //  find and update the correct game
   Game.findByIdAndUpdate(req.params.id, req.body.game, function(err,updatedGame){
@@ -95,6 +95,20 @@ app.put("/games/:id",function(req,res){
       }
   });
 });
+
+// DESTROY ROUTE // Delete a particular game, then redirect
+app.delete("/games/:id",function(req,res){
+  Game.findByIdAndRemove(req.params.id, function(err){
+      if(err){
+        console.log(err);
+      } else {
+        res.redirect("/games");
+      }
+  });
+});
+
+
+
 
 // Set the port for the node server // localhost:3000
 app.listen(3000, function(){
