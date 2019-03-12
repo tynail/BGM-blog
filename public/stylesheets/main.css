@@ -17,6 +17,8 @@
 .h1Form {
   text-align: center;
 }
-#endbtn {
+
+.endbtn {
+  display: inline;
   margin-bottom: 50px;
 }

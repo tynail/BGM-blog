@@ -1,17 +1,18 @@
-var express       = require("express"),
-    mongoose      = require("mongoose"),
-    Game          = require("./models/game");
-    bodyParser    = require("body-parser");
+var express         = require("express"),
+    mongoose        = require("mongoose"),
+    Game            = require("./models/game"),
+    bodyParser      = require("body-parser"),
+    methodOverride  = require("method-override");
 var app = express();
 mongoose.connect("mongodb://localhost:27017/bgm_app", {useNewUrlParser:true});
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.static(__dirname + '/public'));
-
-
 app.set("view engine", "ejs"); // Using ejs as template
+app.use(methodOverride("_method"));
+app.use(express.static(__dirname + '/public'));
 
 //     name: "Broforce",
 //     image:"https://steamcdn-a.akamaihd.net/steam/apps/274190/header.jpg?t=1511400974"
+
 
 //     name: "Nier Automata",
 //     image: "https://upload.wikimedia.org/wikipedia/en/thumb/2/21/Nier_Automata_cover_art.jpg/220px-Nier_Automata_cover_art.jpg"
@@ -71,8 +72,29 @@ app.get("/games/:id",function(req,res){
     });
   });
 
+//EDIT ROUTE // Show Edit form for a game
+app.get("/games/:id/edit",function(req,res){
+  Game.findById(req.params.id, function(err,foundGame){
+    if(err){
+      console.log(err);
+    }else {
+      res.render("edit", {game:foundGame});
+    }
+  });
+});
 
-
+// UPDATED ROUTE
+app.put("/games/:id",function(req,res){
+  //  find and update the correct game
+  Game.findByIdAndUpdate(req.params.id, req.body.game, function(err,updatedGame){
+      if(err){
+        console.log(err);
+        res.redirect("game");
+      } else {
+        res.redirect("/games/" + req.params.id);
+      }
+  });
+});
 
 // Set the port for the node server // localhost:3000
 app.listen(3000, function(){

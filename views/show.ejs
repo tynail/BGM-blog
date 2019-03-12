@@ -11,7 +11,8 @@
         <p> <%= game.description%> </p>
       </div>
     </div>
-    <a id="endbtn" class="btn btn-primary" href="/games">Back to all games</a>
+    <a  class="btn btn-warning endbtn" href="/games/<%= game._id%>/edit">Edit</a>
+    <a  class="btn btn-primary endbtn" href="/games">Back to all games</a>
   </div>
 </div>
 
