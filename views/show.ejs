@@ -9,10 +9,12 @@
       <div class="caption-full">
         <h4> <%= game.name%> </h4>
         <p> <%= game.description%> </p>
+        <a class="btn btn-xs btn-warning" href="/games/<%= game._id%>/edit">Edit</a>
+        <form id="gameDelete" action="/games/<%=game._id%>/?_method=DELETE" method="POST">
+          <input class="btn btn-xs btn-danger" value="Delete" type="submit">
+        </form>
       </div>
     </div>
-    <a  class="btn btn-warning endbtn" href="/games/<%= game._id%>/edit">Edit</a>
-    <a  class="btn btn-primary endbtn" href="/games">Back to all games</a>
   </div>
 </div>
 
